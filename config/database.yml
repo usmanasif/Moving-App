@@ -5,14 +5,14 @@ development:
   database: carrier_app
   pool: 5
   username: root
-  password: ''
+  password: 'helloworld91@'
 test:
   adapter: mysql2
   encoding: utf8
   database: carrier_app_test
   pool: 5
   username: root
-  password: ''
+  password: 'helloworld91@'
 production:
   adapter: mysql2
   encoding: utf8
@@ -20,4 +20,4 @@ production:
   database: carrier_app_pr
   pool: 5
   username: root
-  password: ""
+  password: "helloworld91@"
