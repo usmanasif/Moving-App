@@ -1,0 +1,56 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    if ( $('#inc_id').length > 0 && $('#inc_id').val() > 0 ){
+      window.location.href = '/incidents/'+ $('#inc_id').val() +'/send_new_incident.pdf';
+    }
+
+  });  
+</script>
+<%= hidden_field_tag 'active_class', 'all_projects'%>
+<div class="alert alert-info">
+  <%= link_to "Add item",new_customer_item_path(@customer) , class: "btn btn-xs btn-primary pull-right" %>
+  <strong>Customer Name:</strong> <%= @customer.name %><br/>
+  <strong>Bill of Laden #:</strong> <%= @customer.bill_of_laden %>
+</div>
+
+<% if @items.present? %>  
+  <%#= link_to "Reports", report_projects_path, class: "btn btn-sm btn-info pull-right" ,style: "margin-bottom: 8px;"%>
+  <h1>Item List</h1>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <th>Item #</th>
+      <th>Description at origin</th>
+      <th>Driver</th>
+      <th>Warehouse</th>
+      <th>Shipper</th>
+      <th>Action</th>
+    </thead>  
+    <tbody>
+      <% @items.each do |item|%>
+        <tr>
+          <td><%= link_to item.item_number,  customer_item_path(@customer,item) %></td>
+          <td><%= item.description_at_origin %></td>
+          <td><%= item.driver %></td>
+          <td><%= item.warehouse %></td>
+          <td><%= item.shipper %></td>
+          <td>
+            <%#= link_to "show", project_path(project), class: "btn btn-default btn-sm" %>
+            <%#= link_to "Download Detailed Report", detail_report_project_path(project, { format: :pdf}), class: "btn btn-sm btn-info" %>
+            <%#= link_to "Send Incident Report", project_incidents_path(project), class: "btn btn-sm btn-primary" %>
+            <%#= link_to "Incident Report", "#", class: "btn btn-xs btn-success" %>
+            <!-- project_incidents_path(project) -->
+            <%= link_to "Edit",edit_customer_item_path(@customer,item) , class: "btn btn-xs btn-primary" %>
+
+            <%# if current_user.role == "client" %>
+              <%#= link_to "Assign to user", assign_project_project_path(project), class: "btn btn-xs btn-primary" %>
+            <%# end %>  
+            <%= link_to 'Delete',customer_item_path(@customer,item), data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-xs btn-danger" %>
+            </td>
+        </tr>
+      <% end %>   
+    </tbody>  
+  </table> 
+<% else %>
+  <b>No Item Present</b>
+<% end %>  
