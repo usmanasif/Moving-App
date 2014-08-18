@@ -5,7 +5,8 @@ end
 
 json.items do |json|
 	json.array!(@items) do |json,item|
-	  json.id item.item_number
+	  json.id item.id
+	  json.item_number item.item_number
 	  json.description_at_origin item.description_at_origin
 	  json.warehouse_cross item.warehouse_cross
 	  json.driver item.driver

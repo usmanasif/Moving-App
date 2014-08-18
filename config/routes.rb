@@ -20,16 +20,15 @@ CarrierApp::Application.routes.draw do
   # You can have the root of your site routed with "root"
     root 'home#index'
     resources :invitations
-    resources :users
-    #  do 
+    resources :users do 
     #   resources :projects
     #   member do
     #     get 'projects'
     #   end
-    #   collection do
-    #     get 'add_user'
-    #   end
-    # end
+      collection do
+        get 'add_user'
+      end
+    end
 
     resources :customers do
       member do
