@@ -53,6 +53,17 @@ class CustomersController < ApplicationController
 	    end
 	end
 
+	def edit
+		@customer = Customer.find(params[:id])
+		respond_with @customer
+	end
+
+	def update
+		@customer = Customer.find(params[:id])
+    	flash[:notice] = 'Customer was successfully updated.' if @customer.update(params_customer)
+    	return render json: :true	
+	end
+
 	def users
 		@customer = Customer.find(params[:id])
 		@users = @customer.users
