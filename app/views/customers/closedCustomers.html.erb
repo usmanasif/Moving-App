@@ -24,22 +24,11 @@
           <td><%= link_to customer.name, customer_items_path(customer)%></td>
           <td><%= customer.phone %></td>
           <td>
-            <%#= link_to "show", project_path(project), class: "btn btn-default btn-sm" %>
-            <%#= link_to "Download Detailed Report", detail_report_project_path(project, { format: :pdf}), class: "btn btn-sm btn-info" %>
-            <%#= link_to "Send Incident Report", project_incidents_path(project), class: "btn btn-sm btn-primary" %>
-            <%#= link_to "Incident Report", "#", class: "btn btn-xs btn-success" %>
-            <!-- project_incidents_path(project) -->
-            <%#= link_to "Checklists", "#", class: "btn btn-xs btn-info"%>       
-            <!-- report_project_path(project) -->
+            
             <%= link_to "users", users_customer_path(customer), class: "btn btn-xs btn-default" %>
             <!-- users_project_path(project) -->
             <%= link_to "View items",customer_items_path(customer), class: "btn btn-xs btn-success" %>
-
-            <%= link_to "close user",close_customer_customer_path(customer), class: "btn btn-xs btn-warning" %>
-
-            <% if current_user.role == "client" %>
-              <%= link_to "Assign to user", assign_customer_customer_path(customer), class: "btn btn-xs btn-primary" %>
-            <% end %>  
+  
             <%#= link_to 'Delete', project, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-xs btn-danger" %>
             </td>
         </tr>

@@ -35,11 +35,17 @@ CarrierApp::Application.routes.draw do
         get 'users'
         get 'assign_customer'
         get 'unassign'
+        get 'close_customer'
       end
       collection do 
+        get 'closedCustomers'
         post 'add_users'
       end
-      resources :items
+      resources :items do 
+        member do
+          patch 'upload_image'
+        end
+      end
     end
 
 
