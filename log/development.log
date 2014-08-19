@@ -1,0 +1,371 @@
+
+
+Started POST "/users/sign_in.json" for 122.129.65.93 at 2014-08-18 14:57:16 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by SessionsController#create as JSON
+  Parameters: {"data"=>{"user"=>{"email"=>"faisal.bhatti@devsinc.com", "password"=>"[FILTERED]"}}, "session"=>{"data"=>{"user"=>{"email"=>"faisal.bhatti@devsinc.com", "password"=>"[FILTERED]"}}}}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'faisal.bhatti@devsinc.com' ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2014-08-18 14:51:32', `current_sign_in_at` = '2014-08-18 14:57:16', `last_sign_in_ip` = '39.55.218.198', `current_sign_in_ip` = '122.129.65.93', `sign_in_count` = 66, `updated_at` = '2014-08-18 14:57:16' WHERE `users`.`id` = 2[0m
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `tokens` (`api`, `created_at`, `updated_at`) VALUES ('290a9634875029160e9e74bc97885a24', '2014-08-18 14:57:16', '2014-08-18 14:57:16')
+  [1m[36m (16.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE `tokens` SET `user_id` = 2, `updated_at` = '2014-08-18 14:57:16' WHERE `tokens`.`id` = 6[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+Completed 200 OK in 281ms (Views: 0.9ms | ActiveRecord: 26.4ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:17 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.6ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.3ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 163ms (Views: 90.0ms | ActiveRecord: 4.9ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:21 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 9ms (Views: 2.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/customers/1/items.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:22 +0000
+Processing by ItemsController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1"}
+  [1m[36mToken Load (0.3ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.5ms)[0m  SELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing jbuilder object to block is deprecated and will be removed soon.
+Use |item| instead of |json, item| as block arguments (called from _app_views_items_index_json_jbuilder___3980564209081465886_43098500 at /home/deployer/moving-app/Moving-App/app/views/items/index.json.jbuilder:6)
+  [1m[36mItem Load (0.8ms)[0m  [1mSELECT `items`.* FROM `items` WHERE `items`.`customer_id` = 1[0m
+  Rendered items/index.json.jbuilder (3.7ms)
+Completed 200 OK in 98ms (Views: 7.6ms | ActiveRecord: 46.8ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:26 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[35mToken Load (0.2ms)[0m  SELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mCustomer Load (0.3ms)[0m  [1mSELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2[0m
+Completed 200 OK in 10ms (Views: 2.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/customers/1/edit.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:27 +0000
+Processing by CustomersController#edit as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24", "id"=>"1"}
+  [1m[35mToken Load (0.3ms)[0m  SELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1[0m
+Completed 200 OK in 9ms (Views: 0.6ms | ActiveRecord: 0.9ms)
+
+
+Started PATCH "/customers/1.json" for 122.129.65.93 at 2014-08-18 14:57:37 +0000
+Processing by CustomersController#update as JSON
+  Parameters: {"customer"=>{"bill_of_laden"=>"ws2r", "name"=>"faisal bhatti", "phone"=>"3324167729", "loading_address"=>"sdssdjk", "destination_address"=>"jkhkjh", "tag_lot_number"=>"jkhjkhkjh", "tag_lot_color"=>"hjkhjkh", "agent_name"=>"kjhjkhkh", "date_of_pickup"=>"2014-01-02", "charges"=>"dsds"}, "authenticity_token"=>"290a9634875029160e9e74bc97885a24", "id"=>"1"}
+  [1m[35mToken Load (0.2ms)[0m  SELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE `customers` SET `name` = 'faisal bhatti', `updated_at` = '2014-08-18 14:57:37' WHERE `customers`.`id` = 1[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:38 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.5ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 8ms (Views: 1.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/customers/1/items.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:57:40 +0000
+Processing by ItemsController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1"}
+  [1m[36mToken Load (0.3ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.6ms)[0m  SELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing jbuilder object to block is deprecated and will be removed soon.
+Use |item| instead of |json, item| as block arguments (called from _app_views_items_index_json_jbuilder___3980564209081465886_43098500 at /home/deployer/moving-app/Moving-App/app/views/items/index.json.jbuilder:6)
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT `items`.* FROM `items` WHERE `items`.`customer_id` = 1[0m
+  Rendered items/index.json.jbuilder (2.3ms)
+Completed 200 OK in 13ms (Views: 5.6ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/customers/1/items.json" for 122.129.65.93 at 2014-08-18 14:57:59 +0000
+Processing by ItemsController#create as JSON
+  Parameters: {"item"=>{"item_number"=>"qyw", "description_at_origin"=>"gags", "warehouse_cross"=>"gsgs", "warehouse"=>"gagsg", "driver"=>"gavsg", "shipper"=>"avsg", "exception"=>"vsgs", "desr_symbole"=>"vavs", "exception_symbol"=>"gsgs"}, "authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1"}
+  [1m[35mToken Load (0.2ms)[0m  SELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `items` (`created_at`, `customer_id`, `description_at_origin`, `desr_symbole`, `driver`, `exception`, `exception_symbol`, `item_number`, `shipper`, `updated_at`, `warehouse`, `warehouse_cross`) VALUES ('2014-08-18 14:57:59', 1, 'gags', 'vavs', 'gavsg', 'vsgs', 'gsgs', 'qyw', 'avsg', '2014-08-18 14:57:59', 'gagsg', 'gsgs')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+Completed 200 OK in 59ms (Views: 0.2ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:00 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 7ms (Views: 1.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:02 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 8ms (Views: 1.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/customers/1/items.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:03 +0000
+Processing by ItemsController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing jbuilder object to block is deprecated and will be removed soon.
+Use |item| instead of |json, item| as block arguments (called from _app_views_items_index_json_jbuilder___3980564209081465886_43098500 at /home/deployer/moving-app/Moving-App/app/views/items/index.json.jbuilder:6)
+  [1m[36mItem Load (0.4ms)[0m  [1mSELECT `items`.* FROM `items` WHERE `items`.`customer_id` = 1[0m
+  Rendered items/index.json.jbuilder (3.2ms)
+Completed 200 OK in 11ms (Views: 5.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/customers/1/items/1/edit.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:06 +0000
+Processing by ItemsController#edit as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1", "id"=>"1"}
+  [1m[35mToken Load (0.2ms)[0m  SELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mItem Load (16.5ms)[0m  [1mSELECT `items`.* FROM `items` WHERE `items`.`id` = 1 LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1
+Completed 200 OK in 26ms (Views: 1.1ms | ActiveRecord: 17.2ms)
+
+
+Started PATCH "/customers/1/items/1.json" for 122.129.65.93 at 2014-08-18 14:58:12 +0000
+Processing by ItemsController#update as JSON
+  Parameters: {"item"=>{"id"=>1, "item_number"=>"123", "description_at_origin"=>"gags", "driver"=>"gavsg", "warehouse"=>"gagsg", "warehouse_cross"=>"gsgs", "shipper"=>"avsg", "desr_symbole"=>"vavs", "exception_symbol"=>"gsgs", "location_symbol"=>nil, "exception"=>"vsgs"}, "authenticity_token"=>"290a9634875029160e9e74bc97885a24", "customer_id"=>"1", "id"=>"1"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` WHERE `customers`.`id` = 1 LIMIT 1
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT `items`.* FROM `items` WHERE `items`.`id` = 1 LIMIT 1[0m
+Unpermitted parameters: id
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE `items` SET `item_number` = '123', `updated_at` = '2014-08-18 14:58:12' WHERE `items`.`id` = 1[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:14 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 9ms (Views: 1.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:16 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.1ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 6ms (Views: 1.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:23 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.3ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.3ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 10ms (Views: 2.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:26 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 11ms (Views: 2.3ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:27 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:28 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 8ms (Views: 1.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:29 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 9ms (Views: 1.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 122.129.65.93 at 2014-08-18 14:58:30 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.2ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 8ms (Views: 1.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 39.55.218.198 at 2014-08-18 14:59:09 +0000
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.6ms)
+  Rendered partials/_landing_nav_bar.html.erb (0.9ms)
+  Rendered partials/_flash_message.html.erb (0.8ms)
+Completed 200 OK in 252ms (Views: 229.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/bootstrap-multiselect.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/answers.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/app.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/bootstrap.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/categories.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:10 +0000
+
+
+Started GET "/assets/customers.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/home.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/incidents.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/invitations.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/landing.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/items.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/landing_page_style.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/projects.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/questions.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/reports.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/scaffolds.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/sessions.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/assets/users.css?body=1" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+
+Started GET "/javascripts/landing.js" for 39.55.218.198 at 2014-08-18 14:59:11 +0000
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/landing.js"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  rack-cors (0.2.9) lib/rack/cors.rb:54:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/deployer/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/deployer/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/deployer/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/deployer/.rvm/gems/ruby-2.1.0@eduleaf/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.1ms)
+  Rendered /home/deployer/.rvm/gems/ruby-2.1.0@eduleaf/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (15.3ms)
+  Rendered /home/deployer/.rvm/gems/ruby-2.1.0@eduleaf/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (5.8ms)
+  Rendered /home/deployer/.rvm/gems/ruby-2.1.0@eduleaf/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (94.4ms)
+
+
+Started GET "/customers.json?authenticity_token=290a9634875029160e9e74bc97885a24" for 182.185.245.43 at 2014-08-18 15:39:32 +0000
+Processing by CustomersController#index as JSON
+  Parameters: {"authenticity_token"=>"290a9634875029160e9e74bc97885a24"}
+  [1m[36mToken Load (0.1ms)[0m  [1mSELECT `tokens`.* FROM `tokens` WHERE `tokens`.`api` = '290a9634875029160e9e74bc97885a24' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT `customers`.* FROM `customers` INNER JOIN `customers_users` ON `customers`.`id` = `customers_users`.`customer_id` WHERE `customers_users`.`user_id` = 2
+Completed 200 OK in 188ms (Views: 56.8ms | ActiveRecord: 16.5ms)
