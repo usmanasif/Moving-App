@@ -2,10 +2,15 @@ class CustomersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :check_user
 	# before_action :set_project, only: [:edit, :update, :destroy, :detail_report]
-	respond_to :html, :json, only: [:index, :new, :create, :edit, :update, :show, :destroy,:assign_project,:add_users,:reports,:users]
+	respond_to :html, :json, only: [:closedCustomers,:index, :new, :create, :edit, :update, :show, :destroy,:assign_project,:add_users,:reports,:users]
 
 	def index
 		@customers = current_user.whole_customers
+		respond_with @customers
+	end
+
+	def closedCustomers
+		@customers = current_user.closed_customers
 		respond_with @customers
 	end
 
@@ -69,6 +74,18 @@ class CustomersController < ApplicationController
 		@users = @customer.users
 		respond_with @users
 	end
+
+	def close_customer
+		customer = Customer.find(params[:id])
+		customer.close = true
+		customer.close_date = DateTime.now
+		customer.save!				
+		respond_to do |format|
+	        format.html { redirect_to customers_path, notice: "#{customer.name} successfully closed." }
+	        format.json { render :json=> true }
+	    end
+	end
+
 
 	def assign_customer
 		@customer = Customer.find(params[:id])

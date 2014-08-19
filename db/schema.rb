@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812105312) do
+ActiveRecord::Schema.define(version: 20140819061653) do
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20140812105312) do
     t.string   "charges"
     t.integer  "user_id"
     t.integer  "creator_id"
+    t.boolean  "close",               default: false
+    t.datetime "close_date"
   end
 
   create_table "customers_users", force: true do |t|

@@ -34,7 +34,7 @@
       <% unless current_user.role == 'admin' %>
         <li class="invitations"><a href="<%= customers_path %>">Existing customers</a></li>
         <li class="invite_user"><a href="<%= new_customer_path %>">Add customer</a></li>
-        <li class="invite_user"><a href="<%= customers_path %>">Cloased customer</a></li>
+        <li class="invite_user"><a href="<%= closedCustomers_customers_path %>">Cloased customers</a></li>
       <% end %>   
         
       </ul>

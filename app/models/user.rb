@@ -19,8 +19,13 @@ class User < ActiveRecord::Base
   belongs_to :client, class_name: "User"
  
   def whole_customers
-  	self.customers
+  	self.customers.where(close: false)
   end
+
+  def closed_customers
+    self.customers.where(close: true)
+  end
+
   def admin?
     self.role == "admin"
   end

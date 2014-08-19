@@ -64,11 +64,44 @@ class ItemsController < ApplicationController
 		respond_with @item 
 	end
 
+	def upload_image   #upload image through app
+		@customer = Customer.find(params[:customer_id])
+		@item = Item.find(params[:id])
+		# if params[:item][:itemId].present?
+		# 	@item = Item.find(params[:itemId])
+		# else
+		# 	@item = @customer.items.build
+		# end
+		if params[:item][:file1].present?
+			@item.file1 = uploaded_picture(params[:item][:file1]) if params[:item][:file1].present?
+			@item.save!
+			@url = @item.file1_url
+		elsif params[:item][:file2].present?
+			@item.file2 = uploaded_picture(params[:item][:file2]) if params[:item][:file2].present?
+			@url = @item.file2_url
+		end
+		
+		return render :json=>{url: @url}
+	end
+
+
+
 
 	private
 
 	def params_item
 		params.require(:item).permit(:item_number,:description_at_origin,:driver,:warehouse,:warehouse_cross,:shipper,:desr_symbole,:exception_symbol,:location_symbol,:file1,:file2,:exception)
+	end
+
+  	def uploaded_picture(base64)
+
+	    tempfile = Tempfile.new ['upload', '.jpg']
+	    tempfile.binmode
+	    tempfile.write(Base64.decode64(base64))
+
+	    # ActionDispatch::Http::UploadedFile.new(tempfile: tempfile,
+	    #   filename: 'upload.jpg')
+		tempfile
 	end
 
 end
