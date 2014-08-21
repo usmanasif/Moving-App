@@ -20,6 +20,7 @@ class CustomersController < ApplicationController
 	end
 
 	def create
+		puts "----"*90
 		user_client = current_user.client
 		params[:customer][:creator_id] = current_user.id 
 		customer = user_client.customers.build(params_customer)
@@ -32,6 +33,7 @@ class CustomersController < ApplicationController
 		# redirect_to user_customers_path(current_user)
 		respond_to do |format|
 			if customer.save
+				create_address(params,customer)
 				if current_user.role == "client"
 					users = params[:customer][:userid] if params[:customer][:userid].present?
 					users && users.each do |user|
@@ -58,14 +60,31 @@ class CustomersController < ApplicationController
 	    end
 	end
 
+	
+
 	def edit
 		@customer = Customer.find(params[:id])
+		address = @customer.loading_address.split(', ')
+
+		@customer.loading_address = address[0]
+		@customer.city = address[1]
+		@customer.state = address[2]
+		@customer.zip = address[3]
+
+		des_address = @customer.destination_address.split(', ')
+		@customer.destination_address = des_address[0]
+		@customer.city1 = des_address[1]
+		@customer.state1 = des_address[2]
+		@customer.zip1 = des_address[3]
+		
 		respond_with @customer
 	end
 
 	def update
+		puts "===="*90
 		@customer = Customer.find(params[:id])
     	flash[:notice] = 'Customer was successfully updated.' if @customer.update(params_customer)
+    	create_address(params,@customer)
     	return render json: :true	
 	end
 
@@ -123,12 +142,16 @@ class CustomersController < ApplicationController
 		# redirect_to projects_path		
 	end
 
+	def show
+		@customer = Customer.find(params[:id])
+	end
+
 
 
 	private
 
 	def params_customer
-		params.require(:customer).permit(:creator_id,:name, :phone, :bill_of_laden, :loading_address, :destination_address, :tag_lot_number,:tag_lot_color,:agent_name,:date_of_pickup,:charges,:userid)
+		params.require(:customer).permit(:creator_id,:name, :phone, :bill_of_laden, :loading_address, :destination_address, :tag_lot_number,:tag_lot_color,:agent_name,:date_of_pickup,:charges,:userid,:city,:state,:zip,:city1,:state1,:zip1)
 	end
 
 	def check_user
@@ -139,4 +162,12 @@ class CustomersController < ApplicationController
 			return redirect_to root_url
 		end	
 	end	
+
+	def create_address(params,customer)
+		loading_address = [params[:customer][:loading_address], params[:customer][:city], params[:customer][:state], params[:customer][:zip]].join(", ")
+		destination_address = [params[:customer][:destination_address], params[:customer][:city1], params[:customer][:state1], params[:customer][:zip1]].join(", ")
+		customer.loading_address = loading_address
+		customer.destination_address = destination_address
+		customer.save!
+	end
 end

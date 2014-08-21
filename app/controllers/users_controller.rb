@@ -66,6 +66,32 @@ class UsersController < ApplicationController
 	        format.json { render :json=> notice }
     	end
 	end
+
+	def adduser
+		@user = User.new
+		notice = ''
+		# puts "A"*30
+		# params['user']=JSON.parse(params['user'])
+		@user.email = params['user']['email']
+		@user.first_name = params['user']['first_name']
+		@user.last_name = params['user']['last_name']
+		@user.password = params['user']['password']
+		@user.password_confirmation = params['user']['password_confirmation']
+		@user.company = params['user']['company']
+		@user.phone = params['user']['phone']
+		@user.address = params['user']['address']
+		if @user.save
+			@user.role = "client"
+			@user.client_id = @user.id
+			@user.save!
+			notice = true
+		else
+			notice = @user.errors
+		end		
+		
+		sign_in(@user)
+	    redirect_to users_path, notice: 'User has been added successfully.'
+	end
 	
 	def index
 

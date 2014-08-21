@@ -22,6 +22,7 @@
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <th>Item #</th>
+      <th>Article</th>
       <th>Description at origin</th>
       <th>Driver</th>
       <th>Warehouse</th>
@@ -34,6 +35,7 @@
       <% @items.each do |item|%>
         <tr>
           <td><%= link_to item.item_number,  customer_item_path(@customer,item) %></td>
+          <td><%= item.article %></td>
           <td><%= item.description_at_origin %></td>
           <td><%= item.driver %></td>
           <td><%= item.warehouse %></td>
@@ -45,6 +47,7 @@
             <%#= link_to "Incident Report", "#", class: "btn btn-xs btn-success" %>
             <!-- project_incidents_path(project) -->
             <% if !@customer.close.present? %>
+              <%= link_to "view details",customer_item_path(@customer,item) , class: "btn btn-xs btn-success" %>
               <%= link_to "Edit",edit_customer_item_path(@customer,item) , class: "btn btn-xs btn-primary" %>
               <%= link_to 'Delete',customer_item_path(@customer,item), data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-xs btn-danger" %>
             <% else %>

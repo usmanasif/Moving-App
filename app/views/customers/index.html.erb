@@ -21,7 +21,7 @@
     <tbody>
       <% @customers.each do |customer|%>
         <tr>
-          <td><%= link_to customer.name, customer_items_path(customer)%></td>
+          <td><%= link_to customer.name, customer_path(customer)%></td>
           <td><%= customer.phone %></td>
           <td>
             <%#= link_to "show", project_path(project), class: "btn btn-default btn-sm" %>

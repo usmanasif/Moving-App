@@ -27,6 +27,7 @@ CarrierApp::Application.routes.draw do
     #   end
       collection do
         get 'add_user'
+        post 'adduser'
       end
     end
 
@@ -44,6 +45,9 @@ CarrierApp::Application.routes.draw do
       resources :items do 
         member do
           patch 'upload_image'
+        end
+        collection do
+          get 'empty_item'
         end
       end
     end

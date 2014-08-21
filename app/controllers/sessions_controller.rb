@@ -21,9 +21,9 @@ class SessionsController < Devise::SessionsController
 
     resource = User.find_for_database_authentication(email: email) 
     
-    return invalid_login_attempt unless resource
+    # return invalid_login_attempt unless resource
  
-    if resource.valid_password?(password)
+    if resource && resource.valid_password?(password)
       sign_in(resource)
       random = SecureRandom.hex
       resource.tokens << Token.create!(api: random)
@@ -31,10 +31,19 @@ class SessionsController < Devise::SessionsController
 	        format.html { redirect_to root_path}
 	        format.json { render :json=> {user: resource, authenticity_token: random }}
 	    end
-      puts "SUCCESS"*30
+      # puts "SUCCESS"*30
       return
+    else
+      respond_to do |format|
+
+        format.html {  
+          flash[:alert] =  "Error with your login or password"
+          redirect_to :back
+        }
+        format.json { render :json=> invalid_login_attempt}
+      end
     end
-    invalid_login_attempt
+    # invalid_login_attempt
   end
   # def create
   #   resource = User.find_for_database_authentication(:email=>params[:user][:email])

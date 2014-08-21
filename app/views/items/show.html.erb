@@ -53,6 +53,11 @@
 							<td><%= @item.exception_symbol || ''%></td>
 						</tr>
 						<tr>
+							<td class="td_width" style="background-color: lightgray;">Location symbol</td>
+							<td><%= @item.location_symbol || ''%></td>
+						</tr>
+
+						<tr>
 							<td class="td_width" style="background-color: lightgray;">Photo 1</td>
 							<td><% if @item.file1.present? %>
 								<%= link_to "click here" ,"http://localhost:3000"+@item.file1.url, :target=>"blank"%>
