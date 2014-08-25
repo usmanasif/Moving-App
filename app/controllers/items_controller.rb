@@ -20,8 +20,11 @@ class ItemsController < ApplicationController
 
 	def create
 		customer = Customer.find(params[:customer_id])
-		# @item = customer.items.build(params_item)
-		@item = Item.find(params[:itemid])
+		if params[:itemid].present?
+			@item = Item.find(params[:itemid])
+		else
+			@item = customer.items.build
+		end
 		# @item.item_number = params[:item][:item_number]
 		@count = customer.items.count
 		@item.item_number = @count+1
